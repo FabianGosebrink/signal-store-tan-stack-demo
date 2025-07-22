@@ -23,12 +23,15 @@ export const TodoStore = signalStore(
     deleteTodo(value: Todo): void {
       store.todoQueries.deleteTodo.mutate(value);
     },
+    openDialog() {
+      // Open Dialog through Service
+    }
   })),
   withHooks({
-    onInit({ _mutationSuccess, _mutationError }) {
+    onInit({ _mutationSuccess, _mutationError, ...store }) {
       effect(() => {
         if (_mutationSuccess()) {
-          // Do something
+          store.openDialog();
         }
       });
     },
